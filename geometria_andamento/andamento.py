@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from iminuit import Minuit
 from iminuit.cost import LeastSquares
+from pathlib import Path
 
 def inversa1 (x, a, b):
     return a * (1/x) + b
@@ -19,13 +20,18 @@ def parabola (x, a, b, c):
 
 if __name__ == "__main__":
 
-    with open ("distanze.txt") as dist_input:
+    current_dir = Path(__file__).parent
+    dist_file = current_dir / "distanze.txt"
+    multi_file = current_dir / "multi.txt"
+    err_file = current_dir / "err_multi.txt"
+
+    with open (dist_file) as dist_input:
         distanze = [float (x) for x in dist_input.readlines ()]
 
-    with open ("multi.txt") as multi_input:
+    with open (multi_file) as multi_input:
         multi = [float (x) for x in multi_input.readlines ()]
 
-    with open ("err_multi.txt") as err_input:
+    with open (err_file) as err_input:
         err_multi = [float (x) for x in err_input.readlines ()]
 
     # Calcolo per 1/r

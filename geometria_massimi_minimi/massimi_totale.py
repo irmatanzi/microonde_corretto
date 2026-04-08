@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from iminuit import Minuit
 from iminuit.cost import LeastSquares
 from scipy.stats import chi2
+from pathlib import Path
 
 def func1 (x, a, b, c, d, k):
     return k / x + a * np.cos(d * x + c) + b
@@ -20,13 +21,18 @@ def func3 (x, m, q, A, d, c):
 
 if __name__ == "__main__":
 
-    with open ("distanze_massimi_tot.txt") as dist_input:
+    current_dir = Path (__file__).parent
+    dist_file = current_dir / "distanze_massimi_tot.txt"
+    multi_file = current_dir / "multimetro_massimi_tot.txt"
+    err_file = current_dir / "errori_multi_massimi_tot.txt"
+
+    with open (dist_file) as dist_input:
         distanze = [float (x) for x in dist_input.readlines ()]
 
-    with open ("multimetro_massimi_tot.txt") as multi_input:
+    with open (multi_file) as multi_input:
         multi = [float (x) for x in multi_input.readlines ()]
 
-    with open ("errori_multi_massimi_tot.txt") as err_input:
+    with open (err_file) as err_input:
         err_multi = [float (x) for x in err_input.readlines ()]
 
 

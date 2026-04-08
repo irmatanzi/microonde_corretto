@@ -4,6 +4,7 @@ from iminuit import Minuit
 from iminuit.cost import LeastSquares
 from scipy.stats import chi2
 from scipy.signal import find_peaks
+from pathlib import Path
 
 
 def func1 (x, a, b, c, d, k):
@@ -24,13 +25,18 @@ def func_somma (x, a, b, c, omega, phi, q):
 
 if __name__ == "__main__":
 
-    with open ("distanze_massimi.txt") as dist_input:
+    current_dir = Path (__file__).parent
+    dist_file = current_dir / "distanze_massimi.txt"
+    multi_file = current_dir / "multimetro_massimi.txt"
+    err_file = current_dir / "errori_multi_massimi.txt"
+
+    with open (dist_file) as dist_input:
         distanze = [float (x) for x in dist_input.readlines ()]
 
-    with open ("multimetro_massimi.txt") as multi_input:
+    with open (multi_file) as multi_input:
         multi = [float (x) for x in multi_input.readlines ()]
 
-    with open ("errori_multi_massimi.txt") as err_input:
+    with open (err_file) as err_input:
         err_multi = [float (x) for x in err_input.readlines ()]
 
 

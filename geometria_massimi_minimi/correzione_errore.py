@@ -30,13 +30,18 @@ def correggi_errore (err, chi2rid):
 
 if __name__ == "__main__":
 
-    with open ("distanze_massimi.txt") as dist_input:
+    current_dir = Path (__file__).parent
+    dist_file = current_dir / "distanze_massimi.txt"
+    multi_file = current_dir / "multimetro_massimi.txt"
+    err_file = current_dir / "multi_sigmaunif.txt"
+
+    with open (dist_file) as dist_input:
         distanze = [float (x) for x in dist_input.readlines ()]
 
-    with open ("multimetro_massimi.txt") as multi_input:
+    with open (multi_file) as multi_input:
         multi = [float (x) for x in multi_input.readlines ()]
 
-    with open ("distanze_sigmaunif.txt") as err_input:
+    with open (err_file) as err_input:
         err_multi = [float (x) for x in err_input.readlines ()]
 
     chi2rid_1 = 3.5  # Sostituire con il valore effettivo del chi2 ridotto ottenuto dal fit

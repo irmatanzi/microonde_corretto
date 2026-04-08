@@ -4,6 +4,7 @@ from iminuit import Minuit
 from iminuit.cost import LeastSquares
 from math import sqrt
 from scipy.stats import chi2
+from pathlib import Path
 
 
 def I_cos (x, a, b, c):
@@ -29,10 +30,14 @@ def I_somme2 (x, a, b, c, d, e):
 
 if __name__ == "__main__":
 
-    with open ("angoli_coseni.txt") as file_angoli:
+    current_dir = Path(__file__).parent
+    angoli_file = current_dir / "angoli_coseni.txt"
+    intensità_file = current_dir / "intensità_coseni.txt"
+
+    with open (angoli_file) as file_angoli:
         angoli = [float (x) for x in file_angoli.readlines ()]
 
-    with open ("intensità_coseni.txt") as file_int:
+    with open (intensità_file) as file_int:
         intensità = [float (x) * 30 for x in file_int.readlines ()]
 
     I_0 = intensità[0]

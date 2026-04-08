@@ -4,19 +4,25 @@ from iminuit import Minuit
 from iminuit.cost import LeastSquares
 from scipy.stats import chi2
 from scipy.signal import find_peaks
+from pathlib import Path
 
 def func (x, a, b, c, d):
     return a * np.cos(d*x + c) + b
 
 if __name__ == "__main__":
 
-    with open ("angoli.txt") as angoli_input:
+    current_dir = Path(__file__).parent
+    angoli_file = current_dir / "angoli.txt"
+    multi_file = current_dir / "multi.txt"
+    err_file = current_dir / "err_multi.txt"
+
+    with open (angoli_file) as angoli_input:
         angoli = [float (x) for x in angoli_input.readlines ()]
 
-    with open ("multi.txt") as multi_input:
+    with open (multi_file) as multi_input:
         multi = [float (x) for x in multi_input.readlines ()]
 
-    with open ("err_multi.txt") as err_input:
+    with open (err_file) as err_input:
         err_multi = [float (x) for x in err_input.readlines ()]
 
     ls = LeastSquares (angoli,

@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
+from pathlib import Path
 
 def func1(x, a, b, c, d):
     return (a * np.cos(d * x + c)) / x + b
@@ -11,13 +12,18 @@ def func2(x, a, b, c):
 
 if __name__ == "__main__":
 
-    with open("distanze_massimi.txt") as dist_input:
+    current_dir = Path(__file__).parent
+    dist_file = current_dir / "distanze_massimi.txt"
+    multi_file = current_dir / "multimetro_massimi.txt"
+    err_file = current_dir / "errori_multi_massimi.txt"
+
+    with open(dist_file) as dist_input:
         distanze = np.array([float(x) for x in dist_input.readlines()])
 
-    with open("multimetro_massimi.txt") as multi_input:
+    with open(multi_file) as multi_input:
         multi = np.array([float(x) for x in multi_input.readlines()])
 
-    with open("errori_multi_massimi.txt") as err_input:
+    with open(err_file) as err_input:
         err_multi = np.array([float(x) for x in err_input.readlines()])
 
 
