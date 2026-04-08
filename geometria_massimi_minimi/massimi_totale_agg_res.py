@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from iminuit import Minuit
 from iminuit.cost import LeastSquares
 from scipy.stats import chi2
+from pathlib import Path
 
 def func1 (x, a, b, c, d, k):
     return k / x + a * np.cos(d * x + c) + b
@@ -55,13 +56,21 @@ def plot_residui (x_coord, y_coord, err, func, params, title):
 
 if __name__ == "__main__":
 
-    with open ("dist.txt") as dist_input:
+    current_dir = Path (__file__).parent
+    print(f"Directory dello script: {current_dir}")
+    print(f"Cartella assoluta: {current_dir.absolute()}")
+
+    dist_file = current_dir / "dist.txt"
+    multi_file = current_dir / "multimetro.txt"
+    err_multi_file = current_dir / "multi_sigmaunif.txt"
+
+    with open (dist_file) as dist_input:
         distanze = [float (x) for x in dist_input.readlines ()]
 
-    with open ("multimetro.txt") as multi_input:
+    with open (multi_file) as multi_input:
         multi = [float (x) for x in multi_input.readlines ()]
 
-    with open ("multi_sigmaunif.txt") as err_input:
+    with open (err_multi_file) as err_input:
         err_multi = [float (x) for x in err_input.readlines ()]
 
 

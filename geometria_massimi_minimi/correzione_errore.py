@@ -4,6 +4,25 @@
 # Ricerca di fattore moltiplicativo per correggere l'errore sistematico:
 # L'idea è di scalare gli errori in modo che il chi2 ridotto sia circa 1, e vedere come cambiano i risultati dei fit e dei massimi
 
+
+import numpy as np
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+# Stesse funzioni di prima senza func2 (parabola) che fa veramente schifo.
+
+def func1 (x, a, b, c, d, k):
+    return k / x + a * np.cos(d * x + c) + b
+
+def func1_quadro (x, a, b, c, d, k):
+    return k / x**2 + a * np.cos(d * x + c) + b
+
+def func_somma (x, a, b, c, d, k_1, k_2):
+    return k_1 / x + k_2 / x**2 + a * np.cos(d * x + c) + b
+
+def func3 (x, m, q, A, d, c):
+    return m * x + q + A * np.cos(d * x + c)
+
 def correggi_errore (err, chi2rid):
     fattore = np.sqrt (chi2rid)
     return [e * fattore for e in err]
@@ -20,9 +39,19 @@ if __name__ == "__main__":
     with open ("distanze_sigmaunif.txt") as err_input:
         err_multi = [float (x) for x in err_input.readlines ()]
 
-    chi2rid_1 = 3.5  # Sostituisci con il valore effettivo del chi2 ridotto ottenuto dal fit
+    chi2rid_1 = 3.5  # Sostituire con il valore effettivo del chi2 ridotto ottenuto dal fit
     err_multi_corretto = correggi_errore (err_multi, chi2rid_1)
-
+    print (f"Fattore di correzione: {np.sqrt(chi2rid_1):.2f}")
     # Ora puoi rifare i fit utilizzando err_multi_corretto al posto di err_multi
+
+    fig, ax = plt.subplots (nrows = 1, ncols = 1)
+
+    
+
+
+
+
+
+
 
 
