@@ -15,6 +15,7 @@ from iminuit import Minuit
 from iminuit.cost import LeastSquares
 from scipy.stats import chi2
 from pathlib import Path
+from correzione_errori_lib import correggi_errore
 
 # Stesse funzioni di prima senza func2 (parabola) che fa veramente schifo.
 
@@ -29,10 +30,6 @@ def func_somma (x, a, b, c, d, k_1, k_2):
 
 def func3 (x, m, q, A, d, c):
     return m * x + q + A * np.cos(d * x + c)
-
-def correggi_errore (err, chi2rid):
-    fattore = np.sqrt (chi2rid)
-    return [e * fattore for e in err]
 
 
 if __name__ == "__main__":
@@ -59,7 +56,6 @@ if __name__ == "__main__":
     
     # Ora rifacciamo i fit utilizzando err_multi_corretto al posto di err_multi
 
-    fig, ax = plt.subplots (nrows = 1, ncols = 1)
     
     # Fit con 1/r
 

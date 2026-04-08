@@ -5,6 +5,7 @@ from iminuit.cost import LeastSquares
 from scipy.stats import chi2
 from scipy.signal import find_peaks
 from pathlib import Path
+from correzione_errori_lib import correggi_errore
 
 def func (x, A, ω, φ, q):
     return A * np.cos (ω * x + φ) + q
@@ -26,12 +27,17 @@ if __name__ == "__main__":
     with open (multi_sigma_file) as file_multi_sigma:
         multi_sigma = [float (x) for x in file_multi_sigma.readlines ()]
 
+    # Correzione errori:
+
+    # dal file precedente --> chi2 ridotto = 97.49
+    multi_sigma_corretto = correggi_errore (multi_sigma, 97.49)
+
 
     # Minuit func
 
     ls = LeastSquares (distanze,
                        multi,
-                       multi_sigma,
+                       multi_sigma_corretto,
                        func
                        )
 
@@ -117,7 +123,7 @@ if __name__ == "__main__":
 
     ax.errorbar (distanze,
                  multi,
-                 yerr = multi_sigma,
+                 yerr = multi_sigma_corretto,
                  marker = "o",
                  capsize = 4,
                  linestyle = "None",

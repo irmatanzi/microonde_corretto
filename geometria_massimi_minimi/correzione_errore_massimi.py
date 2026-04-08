@@ -5,6 +5,7 @@ from iminuit.cost import LeastSquares
 from scipy.stats import chi2
 from scipy.signal import find_peaks
 from pathlib import Path
+from correzione_errori_lib import correggi_errore
 
 
 def func1 (x, a, b, c, d, k):
@@ -39,16 +40,21 @@ if __name__ == "__main__":
     with open (err_file) as err_input:
         err_multi = [float (x) for x in err_input.readlines ()]
 
+    # Correzione errori
+
+    # dal programma precedente --> chi2 ridotto = 8.18 con fit 1/r^2 (migliore)
+    err_multi_corretto = correggi_errore (err_multi, 8.18)
+
 
     # Fit 1/r
 
     ls1 = LeastSquares (distanze,
                         multi,
-                        err_multi,
+                        err_multi_corretto,
                         func1
                         )
     m1 = Minuit (ls1,
-                 a = 300,
+                 a = 5,
                  b = 2.58,
                  c = 0.,
                  d = 4,
@@ -84,7 +90,7 @@ if __name__ == "__main__":
 
     ls1_q = LeastSquares (distanze,
                         multi,
-                        err_multi,
+                        err_multi_corretto,
                         func1_quadro
                         )
     m1_q = Minuit (ls1_q,
@@ -124,7 +130,7 @@ if __name__ == "__main__":
 
     ls_somma = LeastSquares (distanze,
                              multi,
-                             err_multi,
+                             err_multi_corretto,
                              func_somma
                              )
 
@@ -158,7 +164,7 @@ if __name__ == "__main__":
 
     ls2 = LeastSquares (distanze,
                         multi,
-                        err_multi,
+                        err_multi_corretto,
                         func2
                         )
     m2 = Minuit (ls2,
@@ -201,7 +207,7 @@ if __name__ == "__main__":
 
     ls3 = LeastSquares (distanze,
                         multi,
-                        err_multi,
+                        err_multi_corretto,
                         func3
                         )
     m3 = Minuit (ls3,
@@ -313,7 +319,7 @@ if __name__ == "__main__":
 
     ax.errorbar (distanze,
                  multi,
-                 yerr = err_multi,
+                 yerr = err_multi_corretto,
                  linestyle = "None",
                  marker = "o",
                  color = "rebeccapurple",
@@ -353,8 +359,3 @@ if __name__ == "__main__":
 
     plt.legend (loc = "lower left")
     plt.show ()
-
-    
-
-
-    
