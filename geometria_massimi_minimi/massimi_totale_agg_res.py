@@ -320,12 +320,6 @@ if __name__ == "__main__":
 
     ax.plot (x_axis,
              [func2 (x, a2, b2, c2, d2, e2) for x in x_axis],
-             label = "$S = A r^2 + B r + C cos(ωr + φ)+ q$",
-             color = "mediumvioletred"
-             ) 
-
-    ax.plot (x_axis,
-             [func2 (x, a2, b2, c2, d2, e2) for x in x_axis],
              label = "$S = A r^2 + B r + C cos(ωr + φ) + q$",
              color = "firebrick"
              )
