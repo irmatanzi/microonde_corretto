@@ -30,6 +30,7 @@ if __name__ == "__main__":
 
     # dal programma precedente --> chi2 ridotto = 11.84
     err_multi_corretto = correggi_errore (err_multi, 11.84)
+    print ("fattore di correzione: ", err_multi_corretto[0] / err_multi[0])
 
 
     # Fit 
@@ -56,6 +57,8 @@ if __name__ == "__main__":
     for par, val, err in zip (m.parameters, m.values, m.errors):
         print (f"{par}: {val:.3f} ± {err:.3f}")
 
+    print ("Chi2: ", m.fval)
+    print ("ndof: ", m.ndof)
     p = chi2.sf (m.fval, m.ndof)
     print ("p value: ", p)
 

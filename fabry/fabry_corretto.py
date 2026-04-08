@@ -31,6 +31,7 @@ if __name__ == "__main__":
 
     # dal file precedente --> chi2 ridotto = 97.49
     multi_sigma_corretto = correggi_errore (multi_sigma, 97.49)
+    print ("fattore di correzione errori:", multi_sigma_corretto[0] / multi_sigma[0])
 
 
     # Minuit func

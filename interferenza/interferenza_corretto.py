@@ -30,6 +30,7 @@ if __name__ == "__main__":
 
     # dal file precedente --> chi2 ridotto = 32.23
     err_multi_corretto = correggi_errore (err_multi, 32.23)
+    print ("fattore di correzione errori:", err_multi_corretto[0] / err_multi[0])
 
     ls = LeastSquares (angoli,
                        multi,

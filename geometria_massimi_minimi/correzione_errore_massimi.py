@@ -44,6 +44,7 @@ if __name__ == "__main__":
 
     # dal programma precedente --> chi2 ridotto = 8.18 con fit 1/r^2 (migliore)
     err_multi_corretto = correggi_errore (err_multi, 8.18)
+    print ("fattore di correzione: ", err_multi_corretto[0] / err_multi[0])
 
 
     # Fit 1/r
